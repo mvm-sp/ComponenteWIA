@@ -1,0 +1,2 @@
+# ComponenteWIA
+Digitalização via WIA
