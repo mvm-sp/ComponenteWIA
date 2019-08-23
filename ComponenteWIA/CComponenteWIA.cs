@@ -164,10 +164,9 @@ namespace ComponenteWIA
 		{
 			List<string> devices = new List<string>();
 			WIA.DeviceManager manager = new WIA.DeviceManager();
-
+			// https://msdn.microsoft.com/en-us/library/windows/desktop/ms630313(v=vs.85).aspx
 			foreach (WIA.DeviceInfo info in manager.DeviceInfos)
 			{
-				// https://msdn.microsoft.com/en-us/library/windows/desktop/ms630313(v=vs.85).aspx
 				if (info.Type == WIA.WiaDeviceType.ScannerDeviceType)
 				{
 
@@ -629,7 +628,7 @@ namespace ComponenteWIA
 					}
 				case (WIA_ERROR_PAPER_EMPTY):
 					{
-						desc = "Não foram encontrados mais documentos para digitalização";
+						desc = "Não foram encontrados outros documentos para digitalização";
 						break;
 					}
 				case (WIA_ERROR_PAPER_PROBLEM):
@@ -735,36 +734,28 @@ namespace ComponenteWIA
 				if (device != null)
 				{
 					// Print camera properties
-					//richTextBox1.AppendText("\n\n Print properties:\n");
-					foreach (Property p in device.Properties)
+					foreach (Property prop in device.Properties)
 					{
-						//richTextBox1.AppendText(p.Name + ": " + p.get_Value() + "  (" + p.PropertyID + ":" + p.IsReadOnly + ") \n");
-						mList.Add(p.Name + "(camera)", "(Valor) = " + p.get_Value().ToString() + "  (PropertyId = " + p.PropertyID + ": IsReadOnly = " + p.IsReadOnly + ")");
+						mList.Add(prop.Name + "(dispositivo)", "(Valor) = " + prop.get_Value().ToString() + "  (PropertyId = " + prop.PropertyID + ": IsReadOnly = " + prop.IsReadOnly + ")");
 						// Update UI
 					}
 
-					// Print commands
-					//richTextBox1.AppendText("\n\n Print commands:\n");
-					foreach (DeviceCommand dvc in device.Commands)
+					// Print item properties
+					foreach (Property prop in device.Items[1].Properties)
 					{
-						mList.Add(dvc.Name + "(commands)", "(Descrição) = " + dvc.Description + "  (CommandId = " + dvc.CommandID + ")");
-						//richTextBox1.AppendText(dvc.Name + ": " + dvc.Description + "  (" + dvc.CommandID + ") \n");
+						mList.Add(prop.Name + "(item 1- dispositivo)", "(PropertyID) = " + prop.PropertyID.ToString() + "  (IsReadOnly = " + prop.IsReadOnly.ToString() + ") \n");
+					}
+
+					// Print commands
+					foreach (DeviceCommand com in device.Commands)
+					{
+						mList.Add(com.Name + "(commandos)", "(Descrição) = " + com.Description + "  (CommandId = " + com.CommandID + ")");
 					}
 
 					// Print events
-					//richTextBox1.AppendText("\n\n Print events:\n");
-					foreach (DeviceEvent dve in device.Events)
+					foreach (DeviceEvent evt in device.Events)
 					{
-						mList.Add(dve.Name + "(events)", "(Descrição) = " + dve.Description + "  (Type = " + dve.Type + ") \n");
-						//richTextBox1.AppendText(dve.Name + ": " + dve.Description + "  (" + dve.Type + ") \n");
-					}
-
-					// Print item properties
-					//richTextBox1.AppendText("\n\n Print item properties:\n");
-					foreach (Property item in device.Items[1].Properties)
-					{
-						mList.Add(item.Name + "(Print)", "(PropertyID) = " + item.PropertyID.ToString() + "  (IsReadOnly = " + item.IsReadOnly.ToString() + ") \n");
-						//richTextBox1.AppendText(item.IsReadOnly + ": " + item.Name + "  (" + item.PropertyID + ") \n");
+						mList.Add(evt.Name + "(events)", "(Descrição) = " + evt.Description + "  (Type = " + evt.Type + ") \n");
 					}
 
 				}

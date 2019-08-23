@@ -4,3 +4,10 @@
 WIADemo/bin/*
 WIADemo/obj/*
 *.suo
+/.vs/ComponenteWIA/v16/Server/sqlite3
+/.vs
+/ComponenteWIA/bin/Debug/ComponenteWIA.exe
+/ComponenteWIA/bin/Debug
+/ComponenteWIA/obj/Debug
+/ComponenteWIA/obj/Release
+/ComponenteWIA/ComponenteWIAOld.txt
